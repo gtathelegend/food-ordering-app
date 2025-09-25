@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Ordering App</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-orange px-3 shadow fixed-top">
+    <a class="navbar-brand fw-bold" href="#">Food Ordering App</a>
+    <div class="ms-auto d-flex align-items-center">
+      <button class="btn btn-light btn-sm me-2" id="loginBtn">Login</button>
+      <button class="btn btn-light btn-sm me-2 d-none" id="logoutBtn">Logout</button>
+      <a class="nav-link" href="#" onclick="showCart()"> 
+      <div class="cart-container" id="cartIcon">
+            🛒 <span class="badge bg-danger" id="cartCount">0</span>
+        </div>
+      </a>
+    </div>
+  </nav>
+
+  <div class="container py-4">
+
+    <!-- Auth Section -->
+    <section id="authSection">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card p-4 shadow">
+            <h3 class="text-center mb-3">Welcome to FoodExpress</h3>
+            <div id="registerForm">
+              <h5 class="mb-3">Register</h5>
+              <input type="text" id="regName" class="form-control mb-2" placeholder="Name">
+              <input type="email" id="regEmail" class="form-control mb-2" placeholder="Email">
+              <input type="password" id="regPass" class="form-control mb-3" placeholder="Password">
+              <button class="btn btn-orange w-100" onclick="registerUser()">Register</button>
+            </div>
+            <div id="loginForm" class="d-none">
+              <h5 class="mb-3">Login</h5>
+              <input type="email" id="loginEmail" class="form-control mb-2" placeholder="Email">
+              <input type="password" id="loginPass" class="form-control mb-3" placeholder="Password">
+              <button class="btn btn-orange w-100" onclick="loginUser()">Login</button>
+            </div>
+            <p id="toggleAuth" class="text-center text-primary mt-3" style="cursor:pointer;">
+              Already have an account? Login
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Food Section -->
+    <section id="foodSection" class="d-none">
+    <h3>Our Menu</h3>
+
+    <!-- Filters -->
+    <div class="btn-group mb-4" role="group" aria-label="Food Filter">
+        <button type="button" class="btn btn-outline-orange me-2" onclick="filterItems('all')">All</button>
+        <button type="button" class="btn btn-outline-orange me-2" onclick="filterItems('indian')">Indian</button>
+        <button type="button" class="btn btn-outline-orange me-2" onclick="filterItems('fastfood')">Fast Food</button>
+        <button type="button" class="btn btn-outline-orange me-2" onclick="filterItems('beverages')">Beverages</button>
+    </div>
+
+    <!-- Food Items -->
+    <div class="row g-4" id="foodItems">
+
+        <!-- Indian -->
+        <div class="col-md-3 food-item" data-category="indian">
+        <div class="card shadow-sm h-100">
+            <img src="images/pbm.jpeg" class="card-img-top" alt="Paneer Butter Masala">
+            <div class="card-body text-center">
+            <h5 class="card-title">Paneer Butter Masala</h5>
+            <p class="card-text">₹180</p>
+            <button class="btn btn-orange" onclick="addToCart('Paneer Butter Masala',180)">
+                Add to Cart <span class="badge bg-light text-dark" id="count-Paneer Butter Masala">0</span>
+            </button>
+            </div>
+        </div>
+        </div>
+
+        <div class="col-md-3 food-item" data-category="indian">
+        <div class="card shadow-sm h-100">
+            <img src="images/md.jpeg" class="card-img-top" alt="Masala Dosa">
+            <div class="card-body text-center">
+            <h5 class="card-title">Masala Dosa</h5>
+            <p class="card-text">₹90</p>
+            <button class="btn btn-orange" onclick="addToCart('Masala Dosa',90)">
+                Add to Cart <span class="badge bg-light text-dark" id="count-Masala Dosa">0</span>
+            </button>
+            </div>
+        </div>
+        </div>
+
+        <div class="col-md-3 food-item" data-category="indian">
+        <div class="card shadow-sm h-100">
+            <img src="images/sam.jpeg" class="card-img-top" alt="Samosa">
+            <div class="card-body text-center">
+            <h5 class="card-title">Samosa</h5>
+            <p class="card-text">₹20</p>
+            <button class="btn btn-orange" onclick="addToCart('Samosa',20)">
+                Add to Cart <span class="badge bg-light text-dark" id="count-Samosa">0</span>
+            </button>
+            </div>
+        </div>
+        </div>
+
+        <!-- Fast Food -->
+        <div class="col-md-3 food-item" data-category="fastfood">
+        <div class="card shadow-sm h-100">
+            <img src="images/cb.jpeg" class="card-img-top" alt="Cheese Burger">
+            <div class="card-body text-center">
+            <h5 class="card-title">Cheese Burger</h5>
+            <p class="card-text">₹150</p>
+            <button class="btn btn-orange" onclick="addToCart('Cheese Burger',150)">
+                Add to Cart <span class="badge bg-light text-dark" id="count-Cheese Burger">0</span>
+            </button>
+            </div>
+        </div>
+        </div>
+
+        <div class="col-md-3 food-item" data-category="fastfood">
+        <div class="card shadow-sm h-100">
+            <img src="images/pizza.jpeg" class="card-img-top" alt="Veg Pizza">
+            <div class="card-body text-center">
+            <h5 class="card-title">Veg Pizza</h5>
+            <p class="card-text">₹250</p>
+            <button class="btn btn-orange" onclick="addToCart('Veg Pizza',250)">
+                Add to Cart <span class="badge bg-light text-dark" id="count-Veg Pizza">0</span>
+            </button>
+            </div>
+        </div>
+        </div>
+
+        <div class="col-md-3 food-item" data-category="fastfood">
+        <div class="card shadow-sm h-100">
+            <img src="images/fries.jpeg" class="card-img-top" alt="French Fries">
+            <div class="card-body text-center">
+            <h5 class="card-title">French Fries</h5>
+            <p class="card-text">₹100</p>
+            <button class="btn btn-orange" onclick="addToCart('French Fries',100)">
+                Add to Cart <span class="badge bg-light text-dark" id="count-French Fries">0</span>
+            </button>
+            </div>
+        </div>
+        </div>
+
+        <!-- Beverages -->
+        <div class="col-md-3 food-item" data-category="beverages">
+        <div class="card shadow-sm h-100">
+            <img src="images/cc.jpeg" class="card-img-top" alt="Coca Cola">
+            <div class="card-body text-center">
+            <h5 class="card-title">Coca Cola</h5>
+            <p class="card-text">₹50</p>
+            <button class="btn btn-orange" onclick="addToCart('Coca Cola',50)">
+                Add to Cart <span class="badge bg-light text-dark" id="count-Coca Cola">0</span>
+            </button>
+            </div>
+        </div>
+        </div>
+
+    </div>
+    </section>
+
+
+
+    <!-- Cart Section -->
+    <section id="cartSection" class="d-none">
+    <h3>Your Cart</h3>
+    <div id="cartItems"></div>  <!-- This must exist -->
+    <div class="d-flex justify-content-between mt-3">
+        <button class="btn btn-outline-orange" onclick="backToFood()">⬅ Back to Food</button>
+        <button class="btn btn-orange" onclick="proceedCheckout()">Proceed to Checkout</button>
+    </div>
+    </section>
+
+
+    <!-- Checkout Section -->
+    <section id="checkoutSection" class="d-none">
+      <h3>Checkout</h3>
+      <div class="card p-4 shadow-sm">
+        <!-- Step 1 -->
+        <div id="checkoutStep1">
+          <h5>Address & Contact</h5>
+          <input type="text" id="address" class="form-control mb-2" placeholder="Address">
+          <input type="text" id="contact" class="form-control mb-3" placeholder="Contact Number">
+          <button class="btn btn-orange w-100" onclick="goToPayment()">Next</button>
+        </div>
+        <!-- Step 2 -->
+        <div id="checkoutStep2" class="d-none">
+            <h4>Payment Details</h4>
+            <div class="mb-3">
+                <label for="cardNumber" class="form-label">Card Number</label>
+                <input type="text" id="cardNumber" class="form-control" placeholder="1234 5678 9012 3456" maxlength="19">
+            </div>
+            <div class="mb-3">
+                <label for="expiryDate" class="form-label">Expiry Date</label>
+                <input type="text" id="expiryDate" class="form-control" placeholder="MM/YY" maxlength="5">
+            </div>
+            <div class="mb-3">
+                <label for="cvv" class="form-label">CVV</label>
+                <input type="text" id="cvv" class="form-control" placeholder="123" maxlength="3">
+            </div>
+            <button class="btn btn-orange" onclick="confirmOrder()">Pay & Confirm</button>
+        </div>
+        <!-- Confirm -->
+        <div id="orderConfirmed" class="d-none text-center">
+          <h4 class="text-success">✅ Order Confirmed!</h4>
+          <p>Your delicious food is on the way 🎉</p>
+          <button class="btn btn-outline-orange mt-3" onclick="backToHome()">Back to Home</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
